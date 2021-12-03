@@ -1,16 +1,23 @@
-# This is a sample Python script.
+import fastapi
+import uvicorn
+from starlette.staticfiles import StaticFiles
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from api import weather_api
+from views import home
+
+api = fastapi.FastAPI()
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def configure():
+    configure_routing()
 
+def configure_routing():
+    api.mount('/static', StaticFiles(directory='static'), name='static')
+    api.include_router(home.router)
+    api.include_router(weather_api.router)
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    configure()
+    uvicorn.run("main:api", port=8000, host="127.0.0.1", reload=True)
+else:
+    configure()

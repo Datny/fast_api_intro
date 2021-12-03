@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pedantic
+httpx
+jinja2
