@@ -3,3 +3,4 @@ uvicorn
 pedantic
 httpx
 jinja2
+requests
